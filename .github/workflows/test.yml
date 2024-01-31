@@ -36,6 +36,12 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      -
+        run: |
+          TAG_VERSION=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
+          docker build -t dockschon/react-tetris-image:${TAG_VERSION} .
+          docker push dockschon/react-tetris-image:${TAG_VERSION}
+
 
 # on: push
 
